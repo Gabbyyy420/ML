@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <form id="squadForm" method="POST">
+        <div class="logo-container">
+        <img src="images/mlogo.png" width="420" height="200" alt="Logo">
+        </div>
+        <fieldset>
+        <legend><h2>AEDS Squad Application</h2></legend>
+        <p>
+        <div class="f1">
+        <label>IGN</label>
+        <input type="text" name="ign" id="ign" placeholder="Enter IGN here..." required>
+        <label>Role</label>
+        <select name="role" id="role" required>
+            <option value="">None</option>
+            <option value="Jungler">Jungler</option>
+            <option value="Mage">Mage</option>
+            <option value="Marksman">Marksman</option>
+            <option value="Exp Lane">Exp Lane</option>
+            <option value="Tank/Roam">Tank/Roam</option>
+        </select>
+        </p>
+        </div>
+        <br>
+     <p>
+        <label>First Name</label>
+        <input type="text" name="firstname" id="firstname" placeholder="Enter First Name here..." required> <br><br>
+        <label>Last Name</label>
+        <input type="text" name="lastname" id="lastname" placeholder="Enter First Last here..." required> <br><br>
+        <label>Gender</label>
+        <select name="gender" id="gender" required>
+            <option value="">None</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+    </p>
+<br>
+    <button type="submit">Submit</button>
+    <div id="response" style="margin-top: 10px; color: green; text-align: center;"></div>
+        </fieldset>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+   <script>
+    $(document).ready(function() {
+        $('#squadForm').on('submit', function(e) {
+            e.preventDefault(); 
+            $.ajax({
+                type: 'POST',
+                url: 'register.php', // PHP script that handles registration
+                data: $(this).serialize(),
+                success: function(response) {
+                    $('#response').html(response); // Show server response
+                    $('#squadForm')[0].reset(); // Reset form fields
+                },
+                error: function() {
+                    $('#response').html('<span style="color:red;">An error occurred. Please try again.</span>');
+                }
+            });
+        });
+    }); 
+    </script>
+    
+</body>
+</html>
